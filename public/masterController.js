@@ -4,4 +4,9 @@ angular.module('eCommerceApp')
     $scope.products = products.data;
 
     console.log($scope.products);
-    });
+
+    $scope.deleteProduct = function (productid) {
+      apiService.deleteProduct(productid);
+    };
+
+  });
