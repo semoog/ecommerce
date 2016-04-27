@@ -1,19 +1,17 @@
-<div class="products" ng-repeat="item in products" ng-show="!edit">
-  <input type="text" name="name" value="{{item.title}}">: <br />
-  <input type="text" name="name" value="{{item.description}}"> <br />
-  $<input type="text" name="name" value="{{item.price}}"> USD
-  <button type="button" ng-click="deleteProduct(item._id)">Delete</button>
-  <button type="button" ng-click="edit = !edit">Edit</button>
-  <br />
-  <br />
+<div class="products" ng-repeat="item in products">
+  <div class="item" ng-show="showEditor[$index]">
+  <input type="text" name="name" ng-model="item.title">: <br />
+  <input type="text" name="name" ng-model="item.description"> <br />
+  <input type="text" name="name" ng-model="item.price"> USD
+  <button type="button" ng-click="showEdits[$index] = false; showEditor[$index] = false; refreshList()">Cancel</button>
+  <button type="button" ng-click="editProduct(item._id, item); showEdits[$index] = false; showEditor[$index] = false">Apply Changes</button>
 </div>
 
-<div class="products_edit" ng-repeat="item in products">
-  {{item.title}}: <br />
-  {{item.description}} <br />
-  ${{item.price}} USD
-  <button type="button" name="delete" ng-click="deleteProduct(item._id)">Delete</button>
-  <button type="button" ng-click="edit = !edit">Edit</button>
-  <br />
-  <br />
+<div class="item" ng-show="!showEdits[$index]">
+{{item.title}}: <br />
+{{item.description}} <br />
+${{item.price}} USD
+<button type="button" name="delete" ng-click="deleteProduct(item._id)">Delete</button>
+<button type="button" ng-click="showEditor[$index] = true; showEdits[$index] = true">Edit</button>
+</div>
 </div>

@@ -12,9 +12,9 @@ angular.module('eCommerceApp')
       	return $http.delete('/api/products/' + id);
       },
 
-      editProduct: function(id) {
+      editProduct: function(id, edits) {
         // console.log("grabbing data: ", $http.get('/api/products'));
-      	return $http.put('/api/products/' + id);
+      	return $http.put('/api/products/' + id, edits);
       }
     };
   });

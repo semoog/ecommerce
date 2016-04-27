@@ -1,9 +1,30 @@
 angular.module('eCommerceApp')
     .controller('masterController', function($scope, apiService, products) {
 
-        $scope.edit = false;
+        // SHOW HIDE EDITOR
+
+        $scope.showEdit = [];
+        $scope.showEditor = [];
+
+        $scope.refreshList = function () {
+          apiService.getProducts().then(function(response) {
+              $scope.products = response.data;
+              for (var i = 0; i < response.data.length; i++) {
+                if ($scope.showEdit[i] === undefined) {
+                  $scope.showEdit[i] = true;
+                }
+                if ($scope.showEditor[i] === undefined) {
+                  $scope.showEditor[i] = false;
+                }
+              }
+          });
+
+        };
+
+        // MAIN
 
         $scope.products = products.data;
+        // $scope.refreshList();
 
         $scope.getProducts = function(productid) {
             apiService.getProducts().then(function(response) {
@@ -21,8 +42,8 @@ angular.module('eCommerceApp')
             });
         };
 
-        $scope.editProduct = function(productid) {
-            apiService.editProduct(productid).then(function(response) {
+        $scope.editProduct = function(id, edits) {
+            apiService.editProduct(id, edits).then(function(response) {
                 if (response) {
                     $scope.getProducts();
                 }
