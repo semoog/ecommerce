@@ -422,7 +422,7 @@ mongoose.connect('mongodb://localhost/products');
 
 ####
 
-Remove or comment out the logic from your endopints that handle creating, reading, updating, and deleting products.  You are going to create a Mongoose Product model and do your CRUD actions that way.
+Remove or comment out the logic from your endpoints that handle creating, reading, updating, and deleting products.  You are going to create a Mongoose Product model and do your CRUD actions that way.
 
 Create a new Product schema and model.  Give it the following fields:
 

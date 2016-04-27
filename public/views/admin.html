@@ -1,3 +1,19 @@
-<div class="products" ng-repeat="item in products">
-  {{item.name}} -- {{item.price}} <button type="button" name="button" ng-click="deleteProduct(item._id)">Delete</button>
+<div class="products" ng-repeat="item in products" ng-show="!edit">
+  <input type="text" name="name" value="{{item.title}}">: <br />
+  <input type="text" name="name" value="{{item.description}}"> <br />
+  $<input type="text" name="name" value="{{item.price}}"> USD
+  <button type="button" ng-click="deleteProduct(item._id)">Delete</button>
+  <button type="button" ng-click="edit = !edit">Edit</button>
+  <br />
+  <br />
+</div>
+
+<div class="products_edit" ng-repeat="item in products">
+  {{item.title}}: <br />
+  {{item.description}} <br />
+  ${{item.price}} USD
+  <button type="button" name="delete" ng-click="deleteProduct(item._id)">Delete</button>
+  <button type="button" ng-click="edit = !edit">Edit</button>
+  <br />
+  <br />
 </div>

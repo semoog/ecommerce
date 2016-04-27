@@ -1,11 +1,18 @@
+// dependencies
+
 var express = require('express');
 var cors = require('cors');
 var bodyParser = require('body-parser');
-var mongojs = require('mongojs');
 
-var db = mongojs('ecommerce'); // SERVER
-var products = db.collection('products'); // COLLECTION
+// mongoose init
 
+var mongoose = require('mongoose');
+
+var product = require('./productSchema');
+
+mongoose.connect('mongodb://localhost/ecommerce');
+
+// app init
 
 var app = express();
 app.use(bodyParser.json());
@@ -17,8 +24,7 @@ var port = 3000;
 // SERVER METHODS
 
 app.get('/api/products', function(req, res){
-	var query = req.query;
-	products.find(query, function(err, response){
+	product.find(req.query, function(err, response){
 		if(err) {
 			res.status(500).json(err);
 		} else {
@@ -28,10 +34,7 @@ app.get('/api/products', function(req, res){
 });
 
 app.get('/api/products/:id', function(req, res){
-	var idObj = {
-		_id: mongojs.ObjectId(req.params.id)
-	};
-	products.findOne(idObj, function(err, response){
+	product.findById(req.params.id, function(err, response){
 		if(err) {
 			res.status(500).json(err);
 		} else {
@@ -41,7 +44,7 @@ app.get('/api/products/:id', function(req, res){
 });
 
 app.post('/api/products', function(req, res){
-	products.save(req.body, function(error, response){
+	product.create(req.body, function(error, response){
 		if(error) {
 			return res.status(500).json(error);
 		} else {
@@ -54,10 +57,7 @@ app.put('/api/products/:id', function(req, res){
 	if(!req.params.id){
 		return res.status(400).send('id query needed');
 	}
-	var query = {
-		_id: mongojs.ObjectId(req.params.id)
-	};
-	products.update(query, req.body, function(error, response){
+	product.findByIdAndUpdate(req.params.id, req.body, function(error, response){
 		if(error) {
 			return res.status(500).json(error);
 		} else {
@@ -70,10 +70,7 @@ app.delete('/api/products/:id', function(req, res){
 	if(!req.params.id){
 		return res.status(400).send('id query needed');
 	}
-	var query = {
-		_id: mongojs.ObjectId(req.params.id)
-	};
-	products.remove(query, function(error, response){
+	product.findByIdAndRemove(req.params.id, function(error, response){
 		if(error) {
 			return res.status(500).json(error);
 		} else {
