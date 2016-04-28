@@ -50,7 +50,7 @@ With the cart POST endpoint, you will expect a request query of `user_id` that w
 
 The cart PUT endpoint will be similar, but is intended to change the quantity of a particular item in the cart. If the new quantity is 0, simply remove the item from the cart altogether.
 
-*Note*:  You'll see that no GET endpoint was created.  Instead, we will simply send the entire cart whenever the user is retrieved.  Look at Mongoose's [.populate()](http://mongoosejs.com/docs/populate.html) method.  Wheverver you are getting your user, add the .populate to populate your cart before sending it to the client.
+*Note*:  You'll see that no GET endpoint was created.  Instead, we will simply send the entire cart whenever the user is retrieved.  Look at Mongoose's [.populate()](http://mongoosejs.com/docs/populate.html) method.  Wherever you are getting your user, add the .populate to populate your cart before sending it to the client.
 
 ### Order
 

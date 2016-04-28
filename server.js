@@ -10,6 +10,12 @@ var mongoose = require('mongoose');
 
 var product = require('./productSchema');
 
+var User = require('./userSchema');
+
+var Order = require('./orderSchema');
+
+var Cart = require('./cartSchema');
+
 mongoose.connect('mongodb://localhost/ecommerce');
 
 // app init
@@ -21,7 +27,7 @@ app.use(express.static(__dirname + '/public'));
 
 var port = 3000;
 
-// SERVER METHODS
+// PRODUCT ENDPOINTS
 
 app.get('/api/products', function(req, res){
 	product.find(req.query, function(err, response){
@@ -78,6 +84,35 @@ app.delete('/api/products/:id', function(req, res){
 		}
 	});
 });
+
+// USER ENDPOINTS
+
+// cart
+
+app.post('/api/cart', function(req, res){
+	product.create(req.body, function(error, response){
+		if(error) {
+			return res.status(500).json(error);
+		} else {
+			return res.json(response);
+		}
+	});
+});
+
+app.put('/api/cart/:id', function(req, res){
+	if(!req.params.id){
+		return res.status(400).send('id query needed');
+	}
+	product.findByIdAndUpdate(req.params.id, req.body, function(error, response){
+		if(error) {
+			return res.status(500).json(error);
+		} else {
+			return res.json(response);
+		}
+	});
+});
+
+// order
 
 // LISTEN
 
